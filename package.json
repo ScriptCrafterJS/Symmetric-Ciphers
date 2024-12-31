@@ -1,0 +1,9 @@
+{
+  "type": "module",
+  "devDependencies": {
+    "electron": "^33.2.1"
+  },
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  }
+}
