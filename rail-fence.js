@@ -49,7 +49,10 @@ function rail_fence_encr(plaintext, key) {
   return result.map((row) => row.join("")).join(" ");
 }
 
-function rail_fence_decr(ciphertext, key) {
+function rail_fence_decr(ciphertext) {
+  // get the key ( number of rails ) from the ciphertext
+  const key = ciphertext.split(" ").length;
+
   //e.g., ciphertext = HorelWlo dl
   // e.g., ciphertextArr = ["H", "o", "r", "e", "l", "W", "l", "o", "d", "l"]
   const ciphertextArr = ciphertext.split(" ").join("").split("");
@@ -145,7 +148,7 @@ function rail_fence_decr(ciphertext, key) {
 const plaintext = "Once a soldier, always a soldier.";
 const key = 3;
 const ciphertext = rail_fence_encr(plaintext, key);
-const decryptedText = rail_fence_decr(ciphertext, key);
+const decryptedText = rail_fence_decr(ciphertext);
 console.log("Plaintext:", plaintext);
 console.log("Key:", key);
 console.log("Ciphertext:", ciphertext);

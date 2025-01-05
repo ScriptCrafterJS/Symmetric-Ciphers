@@ -5,7 +5,6 @@ import fs from "fs";
 import path from "path";
 import readlineSync from "readline-sync";
 
-let key = [];
 function one_time_pad_encr(plaintext, key) {
   // early check to make sure the key is as long as the message
   if (plaintext.length !== key.length) {
@@ -43,18 +42,24 @@ function one_time_pad_decr(ciphertext, key) {
 // Helper method for encryption
 function oneTimePadEncryption(content) {
   // always generate a new key for each encryption process
-  key = generateKey(content.length);
+  const key = generateKey(content.length);
+  // store the key in a file in the current directory
+  fs.writeFileSync("one-time-pad-key.txt", key.join(","));
   return one_time_pad_encr(content, key);
 }
 
 // Helper method for decryption
 function oneTimePadDecryption(content) {
+  const key = fs.readFileSync("one-time-pad-key.txt", "utf-8").split(",");
   return one_time_pad_decr(content, key);
 }
 
 function generateKey(length) {
   // the key is an array of bytes each byte is a random number between 0 and 255
-  const key = Array.from({ length }, () => Math.floor(Math.random() * 256));
+  // const key = Array.from({ length }, () => Math.floor(Math.random() * 256));
+  const key = [
+    100, 200, 150, 220, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210,
+  ];
   return key;
 }
 
@@ -151,9 +156,8 @@ function oneTimePadding() {
         break;
       case "5":
         //print the key value if exists
-        if (key.length > 0) {
-          console.log("The key used is: " + key);
-        }
+        const key = fs.readFileSync("one-time-pad-key.txt", "utf-8").split(",");
+        console.log("The key used is: " + key);
         break;
       case "6":
         //exit the program
